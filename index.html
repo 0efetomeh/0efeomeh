@@ -69,10 +69,12 @@
       const visitSiteButton = document.getElementById("visit-site");
 
       function goToWebsite() {
-        window.location.href = "https://efetomeh.vercel.app";
+        window.location.assign("https://efetomeh.vercel.app");
       }
 
-      visitSiteButton.addEventListener("click", goToWebsite);
+      if (visitSiteButton) {
+        visitSiteButton.addEventListener("click", goToWebsite);
+      }
     </script>
   </body>
 </html>
