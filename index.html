@@ -507,14 +507,14 @@
 
         if (focusList) {
           focusList.innerHTML = personalInfo.focus
-            .map((item, index) => `<li><span>${item}</span><span>${String(index + 1).padStart(2, "0")}</span></li>`)
+            .map((item) => `<li><span>${item}</span></li>`)
             .join("");
         }
 
         if (socialList) {
           socialList.innerHTML = socials
             .map((social) => {
-              const label = social.name === "Email" || social.name === "Mail" ? "@" : social.handle;
+              const label = social.handle ?? "";
               return `<li><a href="${social.url}" target="${social.url.startsWith("mailto:") ? "_self" : "_blank"}" rel="${social.url.startsWith("mailto:") ? "" : "noreferrer"}">${social.name}</a><span>${label}</span></li>`;
             })
             .join("");
