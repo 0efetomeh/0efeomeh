@@ -33,21 +33,23 @@
         font-weight: 500;
       }
 
-      button {
+      .button-link {
+        display: inline-block;
         padding: 0.7rem 1.2rem;
         border: 1px solid #000;
         background: #fff;
         color: #000;
         font-size: 1rem;
         cursor: pointer;
+        text-decoration: none;
       }
 
-      button:hover {
+      .button-link:hover {
         background: #000;
         color: #fff;
       }
 
-      button:focus-visible {
+      .button-link:focus-visible {
         outline: 2px solid #000;
         outline-offset: 2px;
       }
@@ -56,19 +58,14 @@
   <body>
     <main>
       <h1>Coming Soon</h1>
-      <button
-        id="visit-site"
-        type="button"
+      <a
+        class="button-link"
+        href="https://efetomeh.vercel.app"
         title="Go to efetomeh.vercel.app"
+        rel="noopener noreferrer"
       >
         Visit Website
-      </button>
+      </a>
     </main>
-
-    <script>
-      document.getElementById("visit-site").addEventListener("click", function () {
-        window.location.href = "https://efetomeh.vercel.app";
-      });
-    </script>
   </body>
 </html>
