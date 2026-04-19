@@ -3,78 +3,599 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Coming Soon</title>
+    <meta name="description" content="Loading portfolio data..." />
+    <title>Efetomeh</title>
     <style>
       :root {
-        color-scheme: only light;
+        color-scheme: light;
+        --bg: #f4f0e8;
+        --panel: rgba(255, 255, 255, 0.72);
+        --text: #171411;
+        --muted: #6f675f;
+        --line: rgba(23, 20, 17, 0.12);
+        --accent: #1d5c63;
+        --accent-soft: rgba(29, 92, 99, 0.1);
+        --shadow: 0 24px 80px rgba(23, 20, 17, 0.08);
       }
 
       * {
         box-sizing: border-box;
       }
 
+      html {
+        scroll-behavior: smooth;
+      }
+
       body {
         margin: 0;
         min-height: 100vh;
-        display: grid;
-        place-items: center;
-        background: #fff;
-        color: #000;
-        font-family: Arial, sans-serif;
+        background:
+          radial-gradient(circle at top left, rgba(29, 92, 99, 0.12), transparent 32%),
+          radial-gradient(circle at right center, rgba(23, 20, 17, 0.06), transparent 26%),
+          linear-gradient(180deg, #fbf8f3 0%, var(--bg) 100%);
+        color: var(--text);
+        font-family: Georgia, "Times New Roman", serif;
+        line-height: 1.5;
       }
 
-      main {
-        text-align: center;
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      a:hover {
+        color: var(--accent);
+      }
+
+      .page {
+        width: min(1120px, calc(100% - 2rem));
+        margin: 0 auto;
+        padding: 1rem 0 2rem;
+      }
+
+      .shell {
+        display: grid;
+        gap: 1rem;
+        min-height: calc(100vh - 3rem);
+      }
+
+      .hero,
+      .content,
+      .aside,
+      .footer {
+        background: var(--panel);
+        border: 1px solid var(--line);
+        box-shadow: var(--shadow);
+        backdrop-filter: blur(14px);
+      }
+
+      .hero {
+        display: grid;
+        gap: 1.5rem;
+        padding: clamp(1.5rem, 4vw, 3rem);
+        border-radius: 28px;
+      }
+
+      .eyebrow {
+        margin: 0 0 1rem;
+        font-family: Arial, Helvetica, sans-serif;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--muted);
+        font-size: 0.72rem;
+      }
+
+      h1,
+      h2,
+      h3,
+      p {
+        margin-top: 0;
       }
 
       h1 {
-        margin: 0 0 1.5rem;
-        font-size: 2rem;
-        font-weight: 500;
+        margin-bottom: 1rem;
+        font-size: clamp(3rem, 9vw, 7rem);
+        line-height: 0.95;
+        letter-spacing: -0.05em;
+        max-width: 10ch;
       }
 
-      button {
-        padding: 0.7rem 1.2rem;
-        border: 1px solid #000;
-        background: #fff;
-        color: #000;
-        font-size: 1rem;
-        cursor: pointer;
+      .lead {
+        max-width: 34rem;
+        margin-bottom: 1.5rem;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: clamp(1rem, 2vw, 1.1rem);
+        color: var(--muted);
       }
 
-      button:hover {
-        background: #000;
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.8rem;
+        margin-bottom: 1.75rem;
+      }
+
+      .button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 48px;
+        padding: 0.8rem 1.1rem;
+        border-radius: 999px;
+        border: 1px solid var(--line);
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 0.95rem;
+        font-weight: 600;
+        transition: transform 180ms ease, background-color 180ms ease, border-color 180ms ease;
+      }
+
+      .button.primary {
+        background: var(--text);
         color: #fff;
+        border-color: var(--text);
       }
 
-      button:focus-visible {
-        outline: 2px solid #000;
-        outline-offset: 2px;
-        box-shadow: 0 0 0 2px #fff;
+      .button.secondary {
+        background: transparent;
+        color: var(--text);
+      }
+
+      .button:hover {
+        transform: translateY(-1px);
+      }
+
+      .meta-grid {
+        display: grid;
+        gap: 0.75rem;
+        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+        font-family: Arial, Helvetica, sans-serif;
+      }
+
+      .meta-card {
+        padding: 1rem;
+        border-radius: 18px;
+        background: rgba(255, 255, 255, 0.5);
+        border: 1px solid rgba(23, 20, 17, 0.08);
+      }
+
+      .meta-label {
+        display: block;
+        margin-bottom: 0.25rem;
+        color: var(--muted);
+        font-size: 0.8rem;
+      }
+
+      .meta-value {
+        font-size: 1rem;
+        font-weight: 600;
+      }
+
+      .content {
+        display: grid;
+        gap: 1rem;
+        padding: clamp(1.25rem, 3vw, 2rem);
+        border-radius: 24px;
+      }
+
+      .background-grid {
+        display: grid;
+        gap: 1rem;
+      }
+
+      .stack {
+        display: grid;
+        gap: 0.8rem;
+      }
+
+      .section-title {
+        margin-bottom: 0.8rem;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 0.8rem;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+
+      .bio {
+        max-width: 48rem;
+        font-size: clamp(1.1rem, 2vw, 1.3rem);
+      }
+
+      .projects {
+        display: grid;
+        gap: 0.8rem;
+      }
+
+      .project {
+        display: grid;
+        gap: 0.35rem;
+        padding: 1rem 0;
+        border-top: 1px solid var(--line);
+      }
+
+      .project:first-child {
+        border-top: 0;
+        padding-top: 0;
+      }
+
+      .project-row {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 0.8rem;
+      }
+
+      .project-title {
+        margin: 0;
+        font-size: 1.15rem;
+      }
+
+      .project-desc,
+      .contact-note,
+      .footer {
+        font-family: Arial, Helvetica, sans-serif;
+        color: var(--muted);
+      }
+
+      .tech {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.45rem;
+      }
+
+      .chip {
+        padding: 0.35rem 0.7rem;
+        border-radius: 999px;
+        background: var(--accent-soft);
+        color: var(--accent);
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 0.8rem;
+      }
+
+      .aside {
+        display: grid;
+        gap: 1rem;
+        padding: 1.25rem;
+        border-radius: 24px;
+      }
+
+      .list {
+        display: grid;
+        gap: 0.7rem;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        font-family: Arial, Helvetica, sans-serif;
+      }
+
+      .list li {
+        display: flex;
+        justify-content: space-between;
+        gap: 1rem;
+        padding-bottom: 0.7rem;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .list li:last-child {
+        border-bottom: 0;
+        padding-bottom: 0;
+      }
+
+      .footer {
+        display: flex;
+        justify-content: space-between;
+        gap: 1rem;
+        padding: 0.5rem 0.25rem 0;
+        box-shadow: none;
+        border: 0;
+        background: transparent;
+        font-size: 0.9rem;
+      }
+
+      .divider {
+        width: 100%;
+        height: 1px;
+        background: var(--line);
+      }
+
+      @media (min-width: 900px) {
+        .shell {
+          grid-template-columns: minmax(0, 1.45fr) minmax(280px, 0.75fr);
+          align-items: start;
+          padding-top: 1rem;
+        }
+
+        .hero,
+        .content {
+          grid-column: 1;
+        }
+
+        .aside {
+          grid-column: 2;
+          position: sticky;
+          top: 1rem;
+        }
+
+        .footer {
+          grid-column: 1 / -1;
+        }
+      }
+
+      @media (max-width: 640px) {
+        .page {
+          width: min(100% - 1rem, 1120px);
+          padding-top: 0.5rem;
+        }
+
+        .hero,
+        .content,
+        .aside {
+          border-radius: 22px;
+        }
+
+        .project-row,
+        .footer {
+          flex-direction: column;
+        }
+      }
+
+      .button:focus-visible,
+      a:focus-visible {
+        outline: 2px solid var(--accent);
+        outline-offset: 3px;
       }
     </style>
   </head>
   <body>
-    <main>
-      <h1>Coming Soon</h1>
-      <button
-        id="visit-site"
-        type="button"
-        title="Go to efetomeh.vercel.app"
-      >
-        Visit Website
-      </button>
+    <main class="page">
+      <div class="shell">
+        <section class="hero" aria-labelledby="hero-title">
+          <p class="eyebrow" id="hero-eyebrow"></p>
+          <div>
+            <h1 id="hero-title"></h1>
+            <p class="lead" id="hero-lead"></p>
+            <div class="actions">
+              <a class="button primary" id="contact-link" href="#"></a>
+              <a class="button secondary" id="resume-link" href="#"></a>
+              <a class="button secondary" id="github-link" href="#" target="_blank" rel="noreferrer"></a>
+            </div>
+          </div>
+
+          <div class="meta-grid" id="profile-details-grid" aria-label="Profile details">
+            <div class="meta-card">
+              <span class="meta-label" id="label-current-role"></span>
+              <div class="meta-value" id="current-role"></div>
+            </div>
+            <div class="meta-card">
+              <span class="meta-label" id="label-current-institution"></span>
+              <div class="meta-value" id="current-institution"></div>
+            </div>
+            <div class="meta-card">
+              <span class="meta-label" id="label-current-period"></span>
+              <div class="meta-value" id="current-period"></div>
+            </div>
+            <div class="meta-card">
+              <span class="meta-label" id="label-availability"></span>
+              <div class="meta-value" id="availability"></div>
+            </div>
+          </div>
+        </section>
+
+        <aside class="aside" aria-labelledby="focus-title">
+          <div>
+            <p class="section-title" id="focus-title">Focus</p>
+            <ul class="list" id="focus-list"></ul>
+          </div>
+
+          <div>
+            <p class="section-title" id="social-title">Social</p>
+            <ul class="list" id="social-list"></ul>
+          </div>
+        </aside>
+
+        <section class="content" aria-labelledby="work-title">
+          <div>
+            <p class="section-title" id="about-title">About</p>
+            <p class="bio" id="bio"></p>
+          </div>
+
+          <div>
+            <p class="section-title" id="work-title">Selected work</p>
+            <div class="projects" id="projects-list"></div>
+          </div>
+
+          <div class="background-grid">
+            <div class="stack">
+              <p class="section-title" id="education-title">Education</p>
+              <div class="projects" id="education-list"></div>
+            </div>
+
+            <div class="stack">
+              <p class="section-title" id="experience-title">Experience</p>
+              <div class="projects" id="experience-list"></div>
+            </div>
+          </div>
+        </section>
+
+        <div class="divider" aria-hidden="true"></div>
+
+        <footer class="footer">
+          <span id="footer-note"></span>
+          <span><a id="footer-link" href="#" target="_blank" rel="noreferrer"></a></span>
+        </footer>
+      </div>
     </main>
-    <script>
-      const visitSiteButton = document.getElementById("visit-site");
+    <script type="module">
+      const dataUrl = "./data.json";
 
-      function goToWebsite() {
-        window.location.assign("https://efetomeh.vercel.app");
+      const descriptionMeta = document.querySelector('meta[name="description"]');
+      const heroEyebrow = document.getElementById("hero-eyebrow");
+      const heroTitle = document.getElementById("hero-title");
+      const heroLead = document.getElementById("hero-lead");
+      const contactLink = document.getElementById("contact-link");
+      const currentRole = document.getElementById("current-role");
+      const currentInstitution = document.getElementById("current-institution");
+      const currentPeriod = document.getElementById("current-period");
+      const availability = document.getElementById("availability");
+      const profileDetailsGrid = document.getElementById("profile-details-grid");
+      const labelCurrentRole = document.getElementById("label-current-role");
+      const labelCurrentInstitution = document.getElementById("label-current-institution");
+      const labelCurrentPeriod = document.getElementById("label-current-period");
+      const labelAvailability = document.getElementById("label-availability");
+      const resumeLink = document.getElementById("resume-link");
+      const footerLink = document.getElementById("footer-link");
+      const footerNote = document.getElementById("footer-note");
+      const focusTitle = document.getElementById("focus-title");
+      const focusList = document.getElementById("focus-list");
+      const socialList = document.getElementById("social-list");
+      const socialTitle = document.getElementById("social-title");
+      const aboutTitle = document.getElementById("about-title");
+      const workTitle = document.getElementById("work-title");
+      const educationTitle = document.getElementById("education-title");
+      const experienceTitle = document.getElementById("experience-title");
+      const bio = document.getElementById("bio");
+      const projectsList = document.getElementById("projects-list");
+      const educationList = document.getElementById("education-list");
+      const experienceList = document.getElementById("experience-list");
+
+      function renderPortfolio(portfolioData) {
+        const { page, personalInfo, projects, education, experience, socials } = portfolioData;
+        const contactSocial = socials.find((social) => social.name === "Email" || social.name === "Mail") ?? socials[0];
+        const githubSocial = socials.find((social) => social.name === "GitHub");
+        const sections = page.sections ?? {};
+        const profileDetailLabels = page.profileDetailLabels ?? {};
+
+        if (descriptionMeta) {
+          descriptionMeta.setAttribute("content", page.description);
+        }
+
+        document.title = page.title;
+
+        if (heroEyebrow) heroEyebrow.textContent = `${personalInfo.name} / ${personalInfo.fullName}`;
+        if (heroTitle) heroTitle.textContent = personalInfo.title;
+        if (heroLead) {
+          heroLead.textContent = `${personalInfo.description.charAt(0).toUpperCase()}${personalInfo.description.slice(1)} ${page.heroLeadSuffix}`;
+        }
+        if (contactLink) contactLink.textContent = page.contactLabel;
+        if (contactLink && contactSocial) contactLink.setAttribute("href", contactSocial.url);
+        if (profileDetailsGrid) profileDetailsGrid.setAttribute("aria-label", page.profileDetailAriaLabel ?? "Profile details");
+        if (labelCurrentRole) labelCurrentRole.textContent = profileDetailLabels.role ?? "Current role";
+        if (labelCurrentInstitution) labelCurrentInstitution.textContent = profileDetailLabels.institution ?? "Institution";
+        if (labelCurrentPeriod) labelCurrentPeriod.textContent = profileDetailLabels.period ?? "Period";
+        if (labelAvailability) labelAvailability.textContent = profileDetailLabels.availability ?? "Availability";
+        if (currentRole) currentRole.textContent = personalInfo.currentRole;
+        if (currentInstitution) currentInstitution.textContent = personalInfo.currentInstitution.replace(/^@\s*/, "");
+        if (currentPeriod) currentPeriod.textContent = personalInfo.currentPeriod.replace(/—/g, "-");
+        if (availability) availability.textContent = personalInfo.availability;
+        if (resumeLink) resumeLink.textContent = page.resumeLabel;
+        if (resumeLink) resumeLink.setAttribute("href", personalInfo.resumeUrl);
+        if (focusTitle) focusTitle.textContent = sections.focus ?? "Focus";
+        if (socialTitle) socialTitle.textContent = sections.social ?? "Social";
+        if (aboutTitle) aboutTitle.textContent = sections.about ?? "About";
+        if (workTitle) workTitle.textContent = sections.selectedWork ?? "Selected work";
+        if (educationTitle) educationTitle.textContent = sections.education ?? "Education";
+        if (experienceTitle) experienceTitle.textContent = sections.experience ?? "Experience";
+        const githubLink = document.getElementById("github-link");
+        if (githubLink) githubLink.textContent = page.githubLabel;
+        if (githubLink && githubSocial) githubLink.setAttribute("href", githubSocial.url);
+        if (footerNote) footerNote.textContent = page.footerNote;
+        if (footerLink) footerLink.textContent = page.footerUrlLabel;
+        if (footerLink) footerLink.setAttribute("href", page.footerUrl);
+        if (bio) {
+          bio.textContent = `${personalInfo.title} with a practical interest in building reliable systems that are simple to use and difficult to break.`;
+        }
+
+        if (focusList) {
+          focusList.innerHTML = personalInfo.focus
+            .map((item, index) => `<li><span>${item}</span><span>${String(index + 1).padStart(2, "0")}</span></li>`)
+            .join("");
+        }
+
+        if (socialList) {
+          socialList.innerHTML = socials
+            .map((social) => {
+              const label = social.name === "Email" || social.name === "Mail" ? "@" : social.handle;
+              return `<li><a href="${social.url}" target="${social.url.startsWith("mailto:") ? "_self" : "_blank"}" rel="${social.url.startsWith("mailto:") ? "" : "noreferrer"}">${social.name}</a><span>${label}</span></li>`;
+            })
+            .join("");
+        }
+
+        if (projectsList) {
+          projectsList.innerHTML = projects
+            .map(
+              (project) => `
+                <article class="project">
+                  <div class="project-row">
+                    <h3 class="project-title"><a href="${project.url}" target="_blank" rel="noreferrer">${project.title}</a></h3>
+                    <span class="project-desc">${project.year} - ${project.role}</span>
+                  </div>
+                  <p class="project-desc">${project.description.replace(/^.*?:\s*/, "")}</p>
+                  <div class="tech">
+                    ${project.tech.map((tech) => `<span class="chip">${tech}</span>`).join("")}
+                  </div>
+                </article>
+              `
+            )
+            .join("");
+        }
+
+        if (educationList) {
+          educationList.innerHTML = education
+            .map(
+              (item) => `
+                <article class="project">
+                  <div class="project-row">
+                    <h3 class="project-title">${item.degree}</h3>
+                    <span class="project-desc">${item.year}</span>
+                  </div>
+                  <p class="project-desc">${item.school}</p>
+                  <p class="project-desc">${item.description}</p>
+                </article>
+              `
+            )
+            .join("");
+        }
+
+        if (experienceList) {
+          experienceList.innerHTML = experience
+            .map(
+              (item) => `
+                <article class="project">
+                  <div class="project-row">
+                    <h3 class="project-title">${item.role}</h3>
+                    <span class="project-desc">${item.year}</span>
+                  </div>
+                  <p class="project-desc">${item.company}</p>
+                  <p class="project-desc">${item.description}</p>
+                </article>
+              `
+            )
+            .join("");
+        }
       }
 
-      if (visitSiteButton) {
-        visitSiteButton.addEventListener("click", goToWebsite);
+      async function loadPortfolio() {
+        let portfolioData = null;
+
+        try {
+          const response = await fetch(dataUrl, { cache: "no-store" });
+          if (!response.ok) {
+            throw new Error(`Failed to fetch data.json: ${response.status}`);
+          }
+          portfolioData = await response.json();
+        } catch (error) {
+          console.warn("Portfolio data could not be fetched.", error);
+        }
+
+        if (!portfolioData) {
+          if (heroLead) heroLead.textContent = "Portfolio content could not be loaded.";
+          return;
+        }
+
+        renderPortfolio(portfolioData);
       }
+
+      loadPortfolio();
     </script>
   </body>
 </html>
