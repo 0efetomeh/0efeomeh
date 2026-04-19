@@ -48,8 +48,9 @@
       }
 
       button:focus-visible {
-        outline: 2px solid #fff;
+        outline: 2px solid #000;
         outline-offset: 2px;
+        box-shadow: 0 0 0 2px #fff;
       }
     </style>
   </head>
@@ -72,12 +73,6 @@
       }
 
       visitSiteButton.addEventListener("click", goToWebsite);
-      visitSiteButton.addEventListener("keydown", function (event) {
-        if (event.key === "Enter" || event.key === " ") {
-          event.preventDefault();
-          goToWebsite();
-        }
-      });
     </script>
   </body>
 </html>
