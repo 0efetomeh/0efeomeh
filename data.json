@@ -1,14 +1,12 @@
 {
-  "page": {
+  "hero": {
+    "name": "Efetomeh",
+    "fullName": "Emma-Egoro",
     "title": "Efetomeh",
-    "description": "Efetomeh is a software architect and cognitive scientist building tools that complement human cognition.",
-    "heroLeadSuffix": "Focused on scalable web applications, agents, and thoughtful product design.",
-    "contactLabel": "Contact",
-    "resumeLabel": "Resume",
-    "githubLabel": "GitHub",
-    "footerNote": "Based on the Efetomeh repository data.",
-    "footerUrl": "https://efetomeh.algo.xyz",
-    "footerUrlLabel": "efetomeh.algo.xyz",
+    "headline": "Software Architect and Cognitive Scientist",
+    "metaDescription": "Efetomeh is a software architect and cognitive scientist building tools that complement human cognition.",
+    "description": "building tools that complement human cognition without replacing it.",
+    "leadSuffix": "Focused on scalable web applications, agents, and thoughtful product design.",
     "profileDetailAriaLabel": "Profile details",
     "profileDetailLabels": {
       "role": "Current role",
@@ -16,94 +14,131 @@
       "period": "Period",
       "availability": "Availability"
     },
-    "sections": {
-      "focus": "Focus",
-      "social": "Social",
-      "about": "About",
-      "selectedWork": "Selected work",
-      "education": "Education",
-      "experience": "Experience"
+    "actions": {
+      "contact": {
+        "label": "Contact",
+        "url": "mailto:career@efetomeh1a.simplelogin.com"
+      },
+      "resume": {
+        "label": "Resume",
+        "url": "./efetomeh%20-%20resume.pdf"
+      },
+      "blog": {
+        "label": "Blog",
+        "url": "https://efetomeh.algo.xyz/blog"
+      },
+      "github": {
+        "label": "GitHub",
+        "url": "https://github.com/efe-tomeh"
+      }
     }
   },
-  "personalInfo": {
-    "name": "Efetomeh",
-    "fullName": "Emma-Egoro",
-    "title": "Software Architect and Cognitive Scientist",
-    "description": "building tools that complement human cognition without replacing it.",
+  "sections": {
+    "focus": "Focus",
+    "social": "Social",
+    "about": "About",
+    "selectedWork": "Selected work",
+    "education": "Education",
+    "experience": "Experience"
+  },
+  "profile": {
     "currentRole": "CS Masters Student",
     "currentInstitution": "Landmark University",
     "currentPeriod": "2025 - Present",
     "availability": "Available for assignments",
-    "focus": ["Scalable Web Applications", "Critical Thinking", "Agents", "Modern Technologies", "Node.js & Next.js"],
-    "resumeUrl": "./efetomeh%20-%20resume.pdf",
-    "location": "Earth"
+    "focus": [
+      "Scalable Web Applications",
+      "Critical Thinking",
+      "Agents",
+      "Modern Technologies",
+      "Node.js & Next.js"
+    ]
   },
-  "projects": [
-    {
-      "title": "Mikra",
-      "year": "2025",
-      "role": "Software Architect",
-      "company": "Personal",
-      "description": "Mikra: A modern Bible application built for thoughtful, offline-first study.",
-      "tech": ["React", "TypeScript", "Next.js"],
-      "url": "https://mikra.efetomeh.me/about"
-    },
-    {
-      "title": "Scrips",
-      "year": "2025",
-      "role": "Software Architect",
-      "company": "Personal",
-      "description": "Scrips: A single page school record management application built to utilize a GIT-based storage.",
-      "tech": ["React", "Git", "TypeScript"],
-      "url": "https://scrips.efetomeh.me"
-    },
-    {
-      "title": "CHNS Ecosystem",
-      "year": "2025",
-      "role": "Full-Stack Developer",
-      "company": "Personal",
-      "description": "CHNS Ecosystem: A collection of interconnected web applications for various purposes.",
-      "tech": ["Next.js", "TypeScript", "React"],
-      "url": "https://chns.efetomeh.me"
-    }
-  ],
-  "education": [
-    {
-      "degree": "Master of Science in Computer Science",
-      "school": "Landmark University",
-      "year": "2025 - Present",
-      "description": "Focusing on advanced software architecture, artificial intelligence, and cognitive science applications."
-    },
-    {
-      "degree": "Bachelor of Science in Computer Science",
-      "school": "Federal University Lokoja",
-      "year": "2019 - 2023",
-      "description": "Graduated with honors, specializing in natural language processing algorithms and deep learning techniques."
-    }
-  ],
-  "experience": [
-    {
-      "year": "2025 - Present",
-      "role": "Software Architect",
-      "company": "Personal Projects",
-      "description": "Turning software ideas into reliable, scalable, production-ready products."
-    },
-    {
-      "year": "September 2024 - January 2025",
-      "role": "Technical Support | Volunteer",
-      "company": "YouVersion",
-      "description": "Tested, verified, and documented app bugs reported by both mobile and desktop users."
-    },
-    {
-      "year": "2023",
-      "role": "CS Undergraduate Student",
-      "company": "Federal University Lokoja",
-      "description": "Designed and optimized training algorithms for a deep-learning text-summarization model."
-    }
-  ],
-  "socials": [
-    { "name": "Email", "handle": "career@efetomeh1a.simplelogin.com", "url": "mailto:career@efetomeh1a.simplelogin.com" },
-    { "name": "GitHub", "handle": "@efe-tomeh", "url": "https://github.com/efe-tomeh" },
-    { "name": "LinkedIn", "handle": "@efe-tomeh", "url": "https://linkedin.com/in/efe-tomeh" }
-  ]
+  "content": {
+    "projects": [
+      {
+        "title": "Mikra",
+        "year": "2025",
+        "role": "Software Architect",
+        "company": "Personal",
+        "description": "Mikra: A modern Bible application built for thoughtful, offline-first study.",
+        "tech": ["React", "TypeScript", "Next.js"],
+        "url": "https://mikra.efetomeh.me/about"
+      },
+      {
+        "title": "Scrips",
+        "year": "2025",
+        "role": "Software Architect",
+        "company": "Personal",
+        "description": "Scrips: A single page school record management application built to utilize a GIT-based storage.",
+        "tech": ["React", "Git", "TypeScript"],
+        "url": "https://scrips.efetomeh.me"
+      },
+      {
+        "title": "CHNS Ecosystem",
+        "year": "2025",
+        "role": "Full-Stack Developer",
+        "company": "Personal",
+        "description": "CHNS Ecosystem: A collection of interconnected web applications for various purposes.",
+        "tech": ["Next.js", "TypeScript", "React"],
+        "url": "https://chns.efetomeh.me"
+      }
+    ],
+    "education": [
+      {
+        "degree": "Master of Science in Computer Science",
+        "school": "Landmark University",
+        "year": "2025 - Present",
+        "description": "Focusing on advanced software architecture, artificial intelligence, and cognitive science applications."
+      },
+      {
+        "degree": "Bachelor of Science in Computer Science",
+        "school": "Federal University Lokoja",
+        "year": "2019 - 2023",
+        "description": "Graduated with honors, specializing in natural language processing algorithms and deep learning techniques."
+      }
+    ],
+    "experience": [
+      {
+        "year": "2025 - Present",
+        "role": "Software Architect",
+        "company": "Personal Projects",
+        "description": "Turning software ideas into reliable, scalable, production-ready products."
+      },
+      {
+        "year": "September 2024 - January 2025",
+        "role": "Technical Support | Volunteer",
+        "company": "YouVersion",
+        "description": "Tested, verified, and documented app bugs reported by both mobile and desktop users."
+      },
+      {
+        "year": "2023",
+        "role": "CS Undergraduate Student",
+        "company": "Federal University Lokoja",
+        "description": "Designed and optimized training algorithms for a deep-learning text-summarization model."
+      }
+    ],
+    "socials": [
+      {
+        "name": "Email",
+        "handle": "career@efetomeh1a.simplelogin.com",
+        "url": "mailto:career@efetomeh1a.simplelogin.com"
+      },
+      {
+        "name": "GitHub",
+        "handle": "@efe-tomeh",
+        "url": "https://github.com/efe-tomeh"
+      },
+      {
+        "name": "LinkedIn",
+        "handle": "@efe-tomeh",
+        "url": "https://linkedin.com/in/efe-tomeh"
+      }
+    ]
+  },
+  "footer": {
+    "note": "Based on the Efetomeh repository data.",
+    "url": "https://efetomeh.algo.xyz",
+    "label": "efetomeh.algo.xyz"
+  }
 }

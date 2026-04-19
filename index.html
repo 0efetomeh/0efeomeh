@@ -355,9 +355,10 @@
             <h1 id="hero-title"></h1>
             <p class="lead" id="hero-lead"></p>
             <div class="actions">
-              <a class="button primary" id="contact-link" href="#"></a>
-              <a class="button secondary" id="resume-link" href="#"></a>
-              <a class="button secondary" id="github-link" href="#" target="_blank" rel="noreferrer"></a>
+              <a class="button primary" id="contact-link" href=""></a>
+              <a class="button secondary" id="resume-link" href=""></a>
+              <a class="button secondary" id="blog-link" href=""></a>
+              <a class="button secondary" id="github-link" href="" target="_blank" rel="noreferrer"></a>
             </div>
           </div>
 
@@ -443,6 +444,7 @@
       const labelCurrentPeriod = document.getElementById("label-current-period");
       const labelAvailability = document.getElementById("label-availability");
       const resumeLink = document.getElementById("resume-link");
+      const blogLink = document.getElementById("blog-link");
       const footerLink = document.getElementById("footer-link");
       const footerNote = document.getElementById("footer-note");
       const focusTitle = document.getElementById("focus-title");
@@ -459,54 +461,54 @@
       const experienceList = document.getElementById("experience-list");
 
       function renderPortfolio(portfolioData) {
-        const { page, personalInfo, projects, education, experience, socials } = portfolioData;
-        const contactSocial = socials.find((social) => social.name === "Email" || social.name === "Mail") ?? socials[0];
-        const githubSocial = socials.find((social) => social.name === "GitHub");
-        const sections = page.sections ?? {};
-        const profileDetailLabels = page.profileDetailLabels ?? {};
+        const { hero, sections, profile, content, footer } = portfolioData;
+        const { projects, education, experience, socials } = content;
+        const profileDetailLabels = hero.profileDetailLabels ?? {};
 
         if (descriptionMeta) {
-          descriptionMeta.setAttribute("content", page.description);
+          descriptionMeta.setAttribute("content", hero.metaDescription);
         }
 
-        document.title = page.title;
+        document.title = hero.title;
 
-        if (heroEyebrow) heroEyebrow.textContent = `${personalInfo.name} / ${personalInfo.fullName}`;
-        if (heroTitle) heroTitle.textContent = personalInfo.title;
+        if (heroEyebrow) heroEyebrow.textContent = `${hero.name} / ${hero.fullName}`;
+        if (heroTitle) heroTitle.textContent = hero.headline;
         if (heroLead) {
-          heroLead.textContent = `${personalInfo.description.charAt(0).toUpperCase()}${personalInfo.description.slice(1)} ${page.heroLeadSuffix}`;
+          heroLead.textContent = `${hero.description.charAt(0).toUpperCase()}${hero.description.slice(1)} ${hero.leadSuffix}`;
         }
-        if (contactLink) contactLink.textContent = page.contactLabel;
-        if (contactLink && contactSocial) contactLink.setAttribute("href", contactSocial.url);
-        if (profileDetailsGrid) profileDetailsGrid.setAttribute("aria-label", page.profileDetailAriaLabel ?? "Profile details");
-        if (labelCurrentRole) labelCurrentRole.textContent = profileDetailLabels.role ?? "Current role";
-        if (labelCurrentInstitution) labelCurrentInstitution.textContent = profileDetailLabels.institution ?? "Institution";
-        if (labelCurrentPeriod) labelCurrentPeriod.textContent = profileDetailLabels.period ?? "Period";
-        if (labelAvailability) labelAvailability.textContent = profileDetailLabels.availability ?? "Availability";
-        if (currentRole) currentRole.textContent = personalInfo.currentRole;
-        if (currentInstitution) currentInstitution.textContent = personalInfo.currentInstitution.replace(/^@\s*/, "");
-        if (currentPeriod) currentPeriod.textContent = personalInfo.currentPeriod.replace(/—/g, "-");
-        if (availability) availability.textContent = personalInfo.availability;
-        if (resumeLink) resumeLink.textContent = page.resumeLabel;
-        if (resumeLink) resumeLink.setAttribute("href", personalInfo.resumeUrl);
-        if (focusTitle) focusTitle.textContent = sections.focus ?? "Focus";
-        if (socialTitle) socialTitle.textContent = sections.social ?? "Social";
-        if (aboutTitle) aboutTitle.textContent = sections.about ?? "About";
-        if (workTitle) workTitle.textContent = sections.selectedWork ?? "Selected work";
-        if (educationTitle) educationTitle.textContent = sections.education ?? "Education";
-        if (experienceTitle) experienceTitle.textContent = sections.experience ?? "Experience";
+        if (contactLink) contactLink.textContent = hero.actions.contact.label;
+        if (contactLink) contactLink.setAttribute("href", hero.actions.contact.url);
+        if (profileDetailsGrid) profileDetailsGrid.setAttribute("aria-label", hero.profileDetailAriaLabel);
+        if (labelCurrentRole) labelCurrentRole.textContent = profileDetailLabels.role;
+        if (labelCurrentInstitution) labelCurrentInstitution.textContent = profileDetailLabels.institution;
+        if (labelCurrentPeriod) labelCurrentPeriod.textContent = profileDetailLabels.period;
+        if (labelAvailability) labelAvailability.textContent = profileDetailLabels.availability;
+        if (currentRole) currentRole.textContent = profile.currentRole;
+        if (currentInstitution) currentInstitution.textContent = profile.currentInstitution.replace(/^@\s*/, "");
+        if (currentPeriod) currentPeriod.textContent = profile.currentPeriod.replace(/—/g, "-");
+        if (availability) availability.textContent = profile.availability;
+        if (resumeLink) resumeLink.textContent = hero.actions.resume.label;
+        if (resumeLink) resumeLink.setAttribute("href", hero.actions.resume.url);
+        if (blogLink) blogLink.textContent = hero.actions.blog.label;
+        if (blogLink) blogLink.setAttribute("href", hero.actions.blog.url);
         const githubLink = document.getElementById("github-link");
-        if (githubLink) githubLink.textContent = page.githubLabel;
-        if (githubLink && githubSocial) githubLink.setAttribute("href", githubSocial.url);
-        if (footerNote) footerNote.textContent = page.footerNote;
-        if (footerLink) footerLink.textContent = page.footerUrlLabel;
-        if (footerLink) footerLink.setAttribute("href", page.footerUrl);
+        if (githubLink) githubLink.textContent = hero.actions.github.label;
+        if (githubLink) githubLink.setAttribute("href", hero.actions.github.url);
+        if (focusTitle) focusTitle.textContent = sections.focus;
+        if (socialTitle) socialTitle.textContent = sections.social;
+        if (aboutTitle) aboutTitle.textContent = sections.about;
+        if (workTitle) workTitle.textContent = sections.selectedWork;
+        if (educationTitle) educationTitle.textContent = sections.education;
+        if (experienceTitle) experienceTitle.textContent = sections.experience;
+        if (footerNote) footerNote.textContent = footer.note;
+        if (footerLink) footerLink.textContent = footer.label;
+        if (footerLink) footerLink.setAttribute("href", footer.url);
         if (bio) {
-          bio.textContent = `${personalInfo.title} with a practical interest in building reliable systems that are simple to use and difficult to break.`;
+          bio.textContent = `${hero.headline} with a practical interest in building reliable systems that are simple to use and difficult to break.`;
         }
 
         if (focusList) {
-          focusList.innerHTML = personalInfo.focus
+          focusList.innerHTML = profile.focus
             .map((item) => `<li><span>${item}</span></li>`)
             .join("");
         }
