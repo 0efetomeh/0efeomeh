@@ -1,5 +1,5 @@
 const DATA_URL = "/blog-data.json";
-const CONTENT_BASE = "/content/blog/";
+const CONTENT_BASE = "./content/blog/";
 
 function byId(id) {
   return document.getElementById(id);

@@ -10,5 +10,3 @@ Front matter fields:
 - `summary`
 - `tags`
 - `readingTime`
-
-The blog UI reads the markdown files at runtime and renders them using the shared static blog script.
