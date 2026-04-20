@@ -140,9 +140,24 @@ function markdownToHtml(markdown) {
 }
 
 async function loadMarkdownPost(slug) {
-  const response = await fetch(`${CONTENT_BASE}${slug}.md`, { cache: "no-store" });
-  if (!response.ok) {
-    throw new Error(`Failed to fetch blog post ${slug}: ${response.status}`);
+  const candidates = [
+    `${CONTENT_BASE}${slug}.md`,
+    `/blog/content/blog/${slug}.md`,
+    `/content/blog/${slug}.md`,
+  ];
+
+  let response = null;
+
+  for (const url of candidates) {
+    const candidateResponse = await fetch(url, { cache: "no-store" });
+    if (candidateResponse.ok) {
+      response = candidateResponse;
+      break;
+    }
+  }
+
+  if (!response) {
+    throw new Error(`Failed to fetch blog post ${slug}: 404`);
   }
 
   const markdown = await response.text();
