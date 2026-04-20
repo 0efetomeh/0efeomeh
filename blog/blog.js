@@ -320,7 +320,7 @@ function renderConnectPanel(portfolio) {
   }
 
   const actions = portfolio.hero?.actions ?? {};
-  const socials = portfolio.content?.socials ?? [];
+  const socials = portfolio.content?.socials ?? portfolio.socials ?? [];
 
   const connectActions = [actions.contact, actions.resume, actions.github].filter(Boolean);
 
@@ -338,10 +338,21 @@ function renderConnectPanel(portfolio) {
   });
 
   socialsContainer.innerHTML = "";
+  if (!Array.isArray(socials) || socials.length === 0) {
+    const empty = document.createElement("span");
+    empty.className = "muted";
+    empty.textContent = "No social links available.";
+    socialsContainer.appendChild(empty);
+    return;
+  }
+
   socials.forEach((social) => {
     const anchor = document.createElement("a");
+    anchor.className = "button";
     anchor.href = normalizeSiteUrl(social.url);
-    anchor.textContent = social.handle || social.name || "Social";
+    const name = social.name || "Social";
+    const handle = social.handle || "";
+    anchor.textContent = handle ? `${name} ${handle}` : name;
     if (isExternalUrl(anchor.href)) {
       anchor.target = "_blank";
       anchor.rel = "noreferrer";
