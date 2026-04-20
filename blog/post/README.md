@@ -1,4 +1,4 @@
-# Blog Content
+# Blog Posts
 
 Write each blog post as a markdown file in this folder.
 

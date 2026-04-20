@@ -1,5 +1,5 @@
 const DATA_URL = "/blog-data.json";
-const CONTENT_BASE = "./content/blog/";
+const CONTENT_BASE = "./post/";
 
 function byId(id) {
   return document.getElementById(id);
@@ -142,8 +142,7 @@ function markdownToHtml(markdown) {
 async function loadMarkdownPost(slug) {
   const candidates = [
     `${CONTENT_BASE}${slug}.md`,
-    `/blog/content/blog/${slug}.md`,
-    `/content/blog/${slug}.md`,
+    `/blog/post/${slug}.md`,
   ];
 
   let response = null;
