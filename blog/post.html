@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Blog post" />
+    <title>Blog | Efetomeh</title>
+    <link rel="stylesheet" href="./blog.css" />
+  </head>
+  <body data-view="post" data-slug="">
+    <div class="progress" aria-hidden="true"><span id="reading-progress-bar"></span></div>
+    <main class="page">
+      <div class="topbar">
+        <a id="back-link" href="/blog/">Back to Blog</a>
+        <a id="home-link" href="/">Home</a>
+      </div>
+
+      <div class="post-layout">
+        <article class="article surface">
+          <header class="article-header">
+            <div class="post-meta">
+              <span id="post-meta-date"></span>
+              <span id="post-meta-time"></span>
+              <span class="badge" id="post-meta-category"></span>
+            </div>
+            <h1 id="post-title"></h1>
+            <p id="post-summary" class="post-summary"></p>
+            <div id="post-tags" class="tags"></div>
+            <div id="share-buttons-top" class="share"></div>
+          </header>
+
+          <div id="post-content" class="content"></div>
+
+          <footer class="footer-box">
+            <div id="share-buttons-bottom" class="share"></div>
+            <a id="more-articles-link" class="button" href="/blog/"></a>
+          </footer>
+        </article>
+
+        <aside class="sticky">
+          <section class="panel surface">
+            <div class="label-row">
+              <span>About this post</span>
+            </div>
+            <p class="muted" style="margin: 0;">A static, Qereb-style post page with related posts and share options built for GitHub Pages.</p>
+          </section>
+
+          <section id="related-posts" class="grid surface" style="padding: 1rem; margin-top: 1rem;"></section>
+        </aside>
+      </div>
+    </main>
+    <script src="./blog.js"></script>
+  </body>
+</html>

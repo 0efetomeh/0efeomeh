@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Blog" />
+    <title>Blog | Efetomeh</title>
+    <link rel="stylesheet" href="./blog.css" />
+  </head>
+  <body data-view="index">
+    <div class="progress" aria-hidden="true"><span id="reading-progress-bar"></span></div>
+    <main class="page">
+      <div class="topbar">
+        <a id="home-link" href="/">Home</a>
+        <a href="/">Efetomeh</a>
+      </div>
+
+      <section class="hero surface">
+        <p class="eyebrow">Blog</p>
+        <h1 id="blog-title"></h1>
+        <p id="blog-intro"></p>
+      </section>
+
+      <section class="panel surface controls" aria-label="Blog filters">
+        <div class="search-row">
+          <input id="search-input" class="search" type="search" placeholder="Search posts..." />
+          <button id="clear-filters" class="button primary" type="button" hidden>Clear filters</button>
+        </div>
+
+        <div>
+          <div class="label-row">
+            <span id="filter-label">Filter by tags:</span>
+          </div>
+          <div id="tag-filters" class="tags" aria-label="Tag filters"></div>
+        </div>
+
+        <div id="active-filters" class="active-tags"></div>
+      </section>
+
+      <section id="featured-section" class="grid">
+        <div class="label-row">
+          <span id="featured-label">Featured</span>
+        </div>
+        <div id="featured-list" class="post-grid"></div>
+      </section>
+
+      <section class="grid">
+        <div class="search-row" style="margin-bottom: 0.25rem;">
+          <h2 class="section-title" style="margin: 0;" id="results-count"></h2>
+        </div>
+        <div id="all-posts-list" class="post-grid"></div>
+      </section>
+    </main>
+    <script src="./blog.js"></script>
+  </body>
+</html>

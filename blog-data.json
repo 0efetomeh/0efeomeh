@@ -1,0 +1,28 @@
+{
+  "blog": {
+    "page": {
+      "title": "Blog",
+      "description": "Notes, project writeups, and technical essays from Efetomeh.",
+      "intro": "A compact archive of project writeups and technical notes, adapted from the Qereb blog structure for a static site.",
+      "searchPlaceholder": "Search posts...",
+      "filterLabel": "Filter by tags:",
+      "activeFiltersLabel": "Active filters:",
+      "clearFiltersLabel": "Clear filters",
+      "loading": "Loading blog posts...",
+      "noPostsLabel": "No posts found matching your filters.",
+      "featuredLabel": "Featured",
+      "allPostsLabel": "All Posts",
+      "readMoreLabel": "Read more",
+      "backToHomeLabel": "Home",
+      "backToBlogLabel": "Back to Blog",
+      "moreArticlesLabel": "More Articles",
+      "relatedLabel": "Related Posts",
+      "shareLabel": "Share"
+    },
+    "posts": [
+      { "slug": "introducing-qereb" },
+      { "slug": "mikra-modern-bible-app" },
+      { "slug": "scrips-faith-based-education" }
+    ]
+  }
+}
