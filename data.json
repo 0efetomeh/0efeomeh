@@ -126,13 +126,18 @@
       },
       {
         "name": "GitHub",
-        "handle": "@efe-tomeh",
-        "url": "https://github.com/efe-tomeh"
+        "handle": "@0efetomeh",
+        "url": "https://github.com/0efetomeh"
       },
       {
         "name": "LinkedIn",
-        "handle": "@efe-tomeh",
-        "url": "https://linkedin.com/in/efe-tomeh"
+        "handle": "@0efetomeh",
+        "url": "https://linkedin.com/in/0efetomeh"
+      },
+      {
+        "name": "Bluesky",
+        "handle": "@efetomeh.algo.xyz",
+        "url": "https://bsky.app/profile/efetomeh.algo.xyz"
       }
     ]
   },
