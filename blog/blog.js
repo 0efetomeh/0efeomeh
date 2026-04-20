@@ -1,4 +1,5 @@
 const DATA_URL = "/blog-data.json";
+const PORTFOLIO_DATA_URL = "/data.json";
 const CONTENT_BASE = "./post/";
 
 function byId(id) {
@@ -285,6 +286,70 @@ async function loadBlog() {
   };
 }
 
+async function loadPortfolioData() {
+  const response = await fetch(PORTFOLIO_DATA_URL, { cache: "no-store" });
+  if (!response.ok) {
+    throw new Error(`Failed to fetch portfolio data: ${response.status}`);
+  }
+
+  return response.json();
+}
+
+function normalizeSiteUrl(url) {
+  if (typeof url !== "string" || url.length === 0) {
+    return "#";
+  }
+
+  if (url.startsWith("./")) {
+    return `/${url.slice(2)}`;
+  }
+
+  return url;
+}
+
+function isExternalUrl(url) {
+  return /^https?:\/\//i.test(url);
+}
+
+function renderConnectPanel(portfolio) {
+  const actionsContainer = byId("sidebar-actions");
+  const socialsContainer = byId("sidebar-social");
+
+  if (!actionsContainer || !socialsContainer || !portfolio) {
+    return;
+  }
+
+  const actions = portfolio.hero?.actions ?? {};
+  const socials = portfolio.content?.socials ?? [];
+
+  const connectActions = [actions.contact, actions.resume, actions.github].filter(Boolean);
+
+  actionsContainer.innerHTML = "";
+  connectActions.forEach((action) => {
+    const anchor = document.createElement("a");
+    anchor.className = "button";
+    anchor.href = normalizeSiteUrl(action.url);
+    anchor.textContent = action.label ?? "Link";
+    if (isExternalUrl(anchor.href)) {
+      anchor.target = "_blank";
+      anchor.rel = "noreferrer";
+    }
+    actionsContainer.appendChild(anchor);
+  });
+
+  socialsContainer.innerHTML = "";
+  socials.forEach((social) => {
+    const anchor = document.createElement("a");
+    anchor.href = normalizeSiteUrl(social.url);
+    anchor.textContent = social.handle || social.name || "Social";
+    if (isExternalUrl(anchor.href)) {
+      anchor.target = "_blank";
+      anchor.rel = "noreferrer";
+    }
+    socialsContainer.appendChild(anchor);
+  });
+}
+
 function renderIndex(blog) {
   const page = blog.page;
   const posts = blog.posts ?? [];
@@ -415,7 +480,7 @@ function renderIndex(blog) {
   renderFilteredPosts();
 }
 
-function renderPost(blog) {
+function renderPost(blog, portfolio) {
   const posts = blog.posts ?? [];
   const page = blog.page;
   const slug = document.body.dataset.slug || new URLSearchParams(window.location.search).get("slug") || posts[0]?.slug;
@@ -455,6 +520,7 @@ function renderPost(blog) {
   });
 
   byId("post-content").innerHTML = post.html;
+  renderConnectPanel(portfolio);
 
   renderShareButtons(byId("share-buttons-top"), post.title, postUrl);
   renderShareButtons(byId("share-buttons-bottom"), post.title, postUrl);
@@ -466,12 +532,12 @@ function renderPost(blog) {
 
   const relatedContainer = byId("related-posts");
   relatedContainer.innerHTML = "";
-  if (relatedPosts.length > 0) {
-    const heading = document.createElement("h2");
-    heading.className = "section-title";
-    heading.textContent = page.relatedLabel;
-    relatedContainer.appendChild(heading);
+  const heading = document.createElement("h2");
+  heading.className = "section-title";
+  heading.textContent = page.relatedLabel;
+  relatedContainer.appendChild(heading);
 
+  if (relatedPosts.length > 0) {
     const grid = document.createElement("div");
     grid.className = "related-grid";
 
@@ -481,6 +547,11 @@ function renderPost(blog) {
     });
 
     relatedContainer.appendChild(grid);
+  } else {
+    const empty = document.createElement("div");
+    empty.className = "empty-state";
+    empty.textContent = page.noRelatedPostsLabel ?? "No related posts available yet.";
+    relatedContainer.appendChild(empty);
   }
 
   const progressBar = byId("reading-progress-bar");
@@ -498,9 +569,12 @@ function renderPost(blog) {
 (async function init() {
   const view = document.body.dataset.view;
   try {
-    const blog = await loadBlog();
+    const [blog, portfolio] = await Promise.all([
+      loadBlog(),
+      loadPortfolioData().catch(() => null),
+    ]);
     if (view === "post") {
-      renderPost(blog);
+      renderPost(blog, portfolio);
     } else {
       renderIndex(blog);
     }

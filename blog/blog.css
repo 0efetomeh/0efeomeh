@@ -321,6 +321,32 @@ input {
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
 }
 
+.connect-panel {
+  display: grid;
+  gap: 0.65rem;
+  margin-bottom: 1rem;
+}
+
+.sidebar-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.sidebar-social {
+  display: grid;
+  gap: 0.45rem;
+  font-size: 0.95rem;
+}
+
+.sidebar-social a {
+  color: var(--muted);
+}
+
+.sidebar-social a:hover {
+  color: var(--accent);
+}
+
 .progress {
   position: fixed;
   top: 0;

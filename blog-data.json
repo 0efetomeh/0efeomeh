@@ -17,6 +17,7 @@
       "backToBlogLabel": "Back to Blog",
       "moreArticlesLabel": "More Articles",
       "relatedLabel": "Related Posts",
+      "noRelatedPostsLabel": "No related posts available yet.",
       "shareLabel": "Share"
     },
     "posts": [
