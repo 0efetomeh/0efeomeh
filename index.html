@@ -418,6 +418,7 @@
         </section>
       </div>
     </main>
+    <script src="./lib/components.js"></script>
     <script type="module">
       const dataUrl = "./data.json";
 
@@ -469,7 +470,7 @@
           heroLead.textContent = `${hero.description.charAt(0).toUpperCase()}${hero.description.slice(1)} ${hero.leadSuffix}`;
         }
         if (contactLink) contactLink.textContent = hero.actions.contact.label;
-        if (contactLink) contactLink.setAttribute("href", hero.actions.contact.url);
+        if (contactLink) contactLink.setAttribute("href", normalizeSiteUrl(hero.actions.contact.url));
         if (profileDetailsGrid) profileDetailsGrid.setAttribute("aria-label", hero.profileDetailAriaLabel);
         if (labelCurrentRole) labelCurrentRole.textContent = profileDetailLabels.role;
         if (labelCurrentInstitution) labelCurrentInstitution.textContent = profileDetailLabels.institution;
@@ -480,12 +481,12 @@
         if (currentPeriod) currentPeriod.textContent = profile.currentPeriod.replace(/—/g, "-");
         if (availability) availability.textContent = profile.availability;
         if (resumeLink) resumeLink.textContent = hero.actions.resume.label;
-        if (resumeLink) resumeLink.setAttribute("href", hero.actions.resume.url);
+        if (resumeLink) resumeLink.setAttribute("href", normalizeSiteUrl(hero.actions.resume.url));
         if (blogLink) blogLink.textContent = hero.actions.blog.label;
-        if (blogLink) blogLink.setAttribute("href", hero.actions.blog.url);
+        if (blogLink) blogLink.setAttribute("href", normalizeSiteUrl(hero.actions.blog.url));
         const githubLink = document.getElementById("github-link");
         if (githubLink) githubLink.textContent = hero.actions.github.label;
-        if (githubLink) githubLink.setAttribute("href", hero.actions.github.url);
+        if (githubLink) githubLink.setAttribute("href", normalizeSiteUrl(hero.actions.github.url));
         if (focusTitle) focusTitle.textContent = sections.focus;
         if (socialTitle) socialTitle.textContent = sections.social;
         if (aboutTitle) aboutTitle.textContent = sections.about;
@@ -500,73 +501,140 @@
         }
 
         if (focusList) {
-          focusList.innerHTML = profile.focus
-            .map((item) => `<li><span>${item}</span></li>`)
-            .join("");
+          focusList.innerHTML = "";
+          profile.focus.forEach((item) => {
+            const li = document.createElement("li");
+            const span = document.createElement("span");
+            span.textContent = item;
+            li.appendChild(span);
+            focusList.appendChild(li);
+          });
         }
 
         if (socialList) {
-          socialList.innerHTML = socials
-            .map((social) => {
-              const handleLabel = social.handle ?? social.name;
-              const target = social.url.startsWith("mailto:") ? "_self" : "_blank";
-              const rel = social.url.startsWith("mailto:") ? "" : "noreferrer";
-              return `<li><span>${social.name}</span><a href="${social.url}" target="${target}" rel="${rel}">${handleLabel}</a></li>`;
-            })
-            .join("");
+          socialList.innerHTML = "";
+          socials.forEach((social) => {
+            const li = document.createElement("li");
+            const nameSpan = document.createElement("span");
+            nameSpan.textContent = social.name;
+            
+            const handleLabel = social.handle ?? social.name;
+            const link = createLink(social.url, handleLabel, {
+              external: !social.url.startsWith("mailto:")
+            });
+            
+            li.appendChild(nameSpan);
+            li.appendChild(link);
+            socialList.appendChild(li);
+          });
         }
 
         if (projectsList) {
-          projectsList.innerHTML = projects
-            .map(
-              (project) => `
-                <article class="project">
-                  <div class="project-row">
-                    <h3 class="project-title"><a href="${project.url}" target="_blank" rel="noreferrer">${project.title}</a></h3>
-                    <span class="project-desc">${project.year} - ${project.role}</span>
-                  </div>
-                  <p class="project-desc">${project.description.replace(/^.*?:\s*/, "")}</p>
-                  <div class="tech">
-                    ${project.tech.map((tech) => `<span class="chip">${tech}</span>`).join("")}
-                  </div>
-                </article>
-              `
-            )
-            .join("");
+          projectsList.innerHTML = "";
+          projects.forEach((project) => {
+            const article = document.createElement("article");
+            article.className = "project";
+            
+            const row = document.createElement("div");
+            row.className = "project-row";
+            
+            const titleH3 = document.createElement("h3");
+            titleH3.className = "project-title";
+            const titleLink = createLink(project.url, project.title, { external: true });
+            titleH3.appendChild(titleLink);
+            
+            const yearSpan = document.createElement("span");
+            yearSpan.className = "project-desc";
+            yearSpan.textContent = `${project.year} - ${project.role}`;
+            
+            row.appendChild(titleH3);
+            row.appendChild(yearSpan);
+            
+            const desc = document.createElement("p");
+            desc.className = "project-desc";
+            desc.textContent = project.description.replace(/^.*?:\s*/, "");
+            
+            const tech = document.createElement("div");
+            tech.className = "tech";
+            project.tech.forEach((techItem) => {
+              tech.appendChild(createBadge(techItem, "chip"));
+            });
+            
+            article.appendChild(row);
+            article.appendChild(desc);
+            article.appendChild(tech);
+            projectsList.appendChild(article);
+          });
         }
 
         if (educationList) {
-          educationList.innerHTML = education
-            .map(
-              (item) => `
-                <article class="project">
-                  <div class="project-row">
-                    <h3 class="project-title">${item.degree}</h3>
-                    <span class="project-desc">${item.year}</span>
-                  </div>
-                  <p class="project-desc">${item.school}</p>
-                  <p class="project-desc">${item.description}</p>
-                </article>
-              `
-            )
-            .join("");
+          educationList.innerHTML = "";
+          education.forEach((item) => {
+            const article = document.createElement("article");
+            article.className = "project";
+            
+            const row = document.createElement("div");
+            row.className = "project-row";
+            
+            const titleH3 = document.createElement("h3");
+            titleH3.className = "project-title";
+            titleH3.textContent = item.degree;
+            
+            const yearSpan = document.createElement("span");
+            yearSpan.className = "project-desc";
+            yearSpan.textContent = item.year;
+            
+            row.appendChild(titleH3);
+            row.appendChild(yearSpan);
+            
+            const school = document.createElement("p");
+            school.className = "project-desc";
+            school.textContent = item.school;
+            
+            const desc = document.createElement("p");
+            desc.className = "project-desc";
+            desc.textContent = item.description;
+            
+            article.appendChild(row);
+            article.appendChild(school);
+            article.appendChild(desc);
+            educationList.appendChild(article);
+          });
         }
 
         if (experienceList) {
-          experienceList.innerHTML = experience
-            .map(
-              (item) => `
-                <article class="project">
-                  <div class="project-row">
-                    <h3 class="project-title">${item.role}</h3>
-                    <span class="project-desc">${item.year}</span>
-                  </div>
-                  <p class="project-desc">${item.company}</p>
-                  <p class="project-desc">${item.description}</p>
-                </article>
-              `
-            )
-            .join("");
+          experienceList.innerHTML = "";
+          experience.forEach((item) => {
+            const article = document.createElement("article");
+            article.className = "project";
+            
+            const row = document.createElement("div");
+            row.className = "project-row";
+            
+            const titleH3 = document.createElement("h3");
+            titleH3.className = "project-title";
+            titleH3.textContent = item.role;
+            
+            const yearSpan = document.createElement("span");
+            yearSpan.className = "project-desc";
+            yearSpan.textContent = item.year;
+            
+            row.appendChild(titleH3);
+            row.appendChild(yearSpan);
+            
+            const company = document.createElement("p");
+            company.className = "project-desc";
+            company.textContent = item.company;
+            
+            const desc = document.createElement("p");
+            desc.className = "project-desc";
+            desc.textContent = item.description;
+            
+            article.appendChild(row);
+            article.appendChild(company);
+            article.appendChild(desc);
+            experienceList.appendChild(article);
+          });
         }
       }
 

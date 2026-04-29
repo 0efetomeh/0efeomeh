@@ -2,10 +2,15 @@ const DATA_URL = "/blog-data.json";
 const PORTFOLIO_DATA_URL = "/data.json";
 const CONTENT_BASE = "./post/";
 
-function byId(id) {
-  return document.getElementById(id);
-}
+// Note: Shared utilities are loaded from ../lib/components.js
+// Functions used: byId, escapeHtml, renderInlineMarkdown, formatDate, 
+//                 normalizeSiteUrl, isExternalUrl, fetchJson, createLink, createBadge
 
+/**
+ * Helper to try multiple element IDs (for backward compatibility)
+ * @param {string[]} ids - Array of IDs to try
+ * @returns {HTMLElement|null} First found element or null
+ */
 function byAnyId(ids) {
   for (const id of ids) {
     const node = byId(id);
@@ -14,23 +19,6 @@ function byAnyId(ids) {
     }
   }
   return null;
-}
-
-function formatDate(dateString) {
-  return new Date(dateString).toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  });
-}
-
-function escapeHtml(value) {
-  return value
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/\"/g, "&quot;")
-    .replace(/'/g, "&#39;");
 }
 
 function parseFrontMatterValue(value) {
@@ -220,11 +208,15 @@ function createPostCard(post, readMoreLabel) {
 
   const meta = document.createElement("div");
   meta.className = "post-meta";
-  meta.innerHTML = `
-    <span>${formatDate(post.date)}</span>
-    <span class="badge">${post.category ?? "Blog"}</span>
-    ${post.featured ? '<span class="badge">Featured</span>' : ""}
-  `;
+  
+  const dateSpan = document.createElement("span");
+  dateSpan.textContent = formatDate(post.date);
+  meta.appendChild(dateSpan);
+  
+  meta.appendChild(createBadge(post.category ?? "Blog", "badge"));
+  if (post.featured) {
+    meta.appendChild(createBadge("Featured", "badge"));
+  }
 
   const title = document.createElement("h3");
   title.className = "post-title";
@@ -240,10 +232,7 @@ function createPostCard(post, readMoreLabel) {
   const tags = document.createElement("div");
   tags.className = "tags";
   post.tags.forEach((tag) => {
-    const chip = document.createElement("span");
-    chip.className = "badge";
-    chip.textContent = tag;
-    tags.appendChild(chip);
+    tags.appendChild(createBadge(tag, "badge"));
   });
 
   const footer = document.createElement("div");
@@ -281,12 +270,7 @@ function renderShareButtons(container, title, url) {
 }
 
 async function loadBlog() {
-  const response = await fetch(DATA_URL, { cache: "no-store" });
-  if (!response.ok) {
-    throw new Error(`Failed to fetch blog data: ${response.status}`);
-  }
-
-  const payload = await response.json();
+  const payload = await fetchJson(DATA_URL, {});
   const blog = payload.blog ?? payload;
   const posts = await Promise.all((blog.posts ?? []).map((entry) => loadMarkdownPost(entry.slug)));
 
@@ -297,29 +281,7 @@ async function loadBlog() {
 }
 
 async function loadPortfolioData() {
-  const response = await fetch(PORTFOLIO_DATA_URL, { cache: "no-store" });
-  if (!response.ok) {
-    throw new Error(`Failed to fetch portfolio data: ${response.status}`);
-  }
-
-  return response.json();
-}
-
-function normalizeSiteUrl(url) {
-  if (typeof url !== "string" || url.length === 0) {
-    return "#";
-  }
-
-  if (url.startsWith("./")) {
-    return `/${url.slice(2)}`;
-  }
-
-  return url;
-}
-
-function isExternalUrl(url) {
-  return /^https?:\/\//i.test(url);
-}
+  return fetchJson(PORTFOLIO_DATA_URL);
 
 function renderConnectPanel(portfolio) {
   const actionsContainer = byId("sidebar-actions");
@@ -336,15 +298,11 @@ function renderConnectPanel(portfolio) {
 
   actionsContainer.innerHTML = "";
   connectActions.forEach((action) => {
-    const anchor = document.createElement("a");
-    anchor.className = "button";
-    anchor.href = normalizeSiteUrl(action.url);
-    anchor.textContent = action.label ?? "Link";
-    if (isExternalUrl(anchor.href)) {
-      anchor.target = "_blank";
-      anchor.rel = "noreferrer";
-    }
-    actionsContainer.appendChild(anchor);
+    const link = createLink(action.url, action.label ?? "Link", {
+      className: "button",
+      external: isExternalUrl(normalizeSiteUrl(action.url))
+    });
+    actionsContainer.appendChild(link);
   });
 
   socialsContainer.innerHTML = "";
@@ -357,17 +315,14 @@ function renderConnectPanel(portfolio) {
   }
 
   socials.forEach((social) => {
-    const anchor = document.createElement("a");
-    anchor.className = "button";
-    anchor.href = normalizeSiteUrl(social.url);
     const name = social.name || "Social";
     const handle = social.handle || "";
-    anchor.textContent = handle ? `${name} ${handle}` : name;
-    if (isExternalUrl(anchor.href)) {
-      anchor.target = "_blank";
-      anchor.rel = "noreferrer";
-    }
-    socialsContainer.appendChild(anchor);
+    const text = handle ? `${name} ${handle}` : name;
+    const link = createLink(social.url, text, {
+      className: "button",
+      external: isExternalUrl(normalizeSiteUrl(social.url))
+    });
+    socialsContainer.appendChild(link);
   });
 }
 
