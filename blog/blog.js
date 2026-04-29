@@ -6,6 +6,16 @@ function byId(id) {
   return document.getElementById(id);
 }
 
+function byAnyId(ids) {
+  for (const id of ids) {
+    const node = byId(id);
+    if (node) {
+      return node;
+    }
+  }
+  return null;
+}
+
 function formatDate(dateString) {
   return new Date(dateString).toLocaleDateString("en-US", {
     year: "numeric",
@@ -313,7 +323,7 @@ function isExternalUrl(url) {
 
 function renderConnectPanel(portfolio) {
   const actionsContainer = byId("sidebar-actions");
-  const socialsContainer = byId("sidebar-social");
+  const socialsContainer = byAnyId(["sidebar-network", "sidebar-social"]);
 
   if (!actionsContainer || !socialsContainer || !portfolio) {
     return;
@@ -322,7 +332,7 @@ function renderConnectPanel(portfolio) {
   const actions = portfolio.hero?.actions ?? {};
   const socials = portfolio.content?.socials ?? portfolio.socials ?? [];
 
-  const connectActions = [actions.contact, actions.resume, actions.github].filter(Boolean);
+  const connectActions = Object.values(actions).filter(Boolean);
 
   actionsContainer.innerHTML = "";
   connectActions.forEach((action) => {
@@ -533,8 +543,8 @@ function renderPost(blog, portfolio) {
   byId("post-content").innerHTML = post.html;
   renderConnectPanel(portfolio);
 
-  renderShareButtons(byId("share-buttons-top"), post.title, postUrl);
-  renderShareButtons(byId("share-buttons-bottom"), post.title, postUrl);
+  renderShareButtons(byAnyId(["post-links-top", "share-buttons-top"]), post.title, postUrl);
+  renderShareButtons(byAnyId(["post-links-bottom", "share-buttons-bottom"]), post.title, postUrl);
 
   const relatedPosts = posts
     .filter((entry) => entry.slug !== post.slug)

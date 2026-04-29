@@ -298,7 +298,7 @@ input {
   gap: 0.45rem;
 }
 
-.share,
+.link-actions,
 .footer-actions {
   display: flex;
   flex-wrap: wrap;
@@ -333,17 +333,17 @@ input {
   gap: 0.5rem;
 }
 
-.sidebar-social {
+.sidebar-network {
   display: grid;
   gap: 0.45rem;
   font-size: 0.95rem;
 }
 
-.sidebar-social a {
+.sidebar-network a {
   color: var(--muted);
 }
 
-.sidebar-social a:hover {
+.sidebar-network a:hover {
   color: var(--accent);
 }
 
