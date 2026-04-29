@@ -282,6 +282,7 @@ async function loadBlog() {
 
 async function loadPortfolioData() {
   return fetchJson(PORTFOLIO_DATA_URL);
+}
 
 function renderConnectPanel(portfolio) {
   const actionsContainer = byId("sidebar-actions");
