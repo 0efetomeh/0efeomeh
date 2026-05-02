@@ -29,7 +29,7 @@
       },
       "github": {
         "label": "GitHub",
-        "url": "https://github.com/efe-tomeh"
+        "url": "https://github.com/eftmh"
       }
     }
   },
@@ -126,8 +126,8 @@
       },
       {
         "name": "GitHub",
-        "handle": "@0efetomeh",
-        "url": "https://github.com/0efetomeh"
+        "handle": "@eftmh",
+        "url": "https://github.com/eftmh"
       },
       {
         "name": "Mastodon",
@@ -136,13 +136,8 @@
       },
       {
         "name": "LinkedIn",
-        "handle": "@0efetomeh",
-        "url": "https://linkedin.com/in/0efetomeh"
-      },
-      {
-        "name": "X",
-        "handle": "@efetomehxyz",
-        "url": "https://x.com/efetomehxyz"
+        "handle": "@eftmh",
+        "url": "https://linkedin.com/in/eftmh"
       }
     ]
   },
